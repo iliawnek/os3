@@ -31,7 +31,7 @@ public class WorkloadGenerator {
                 int deltaT = WorkloadGenerator.myPoisson(L, random);
                 AAT = AAT + (PID == 0 ? 0 : deltaT);
 
-                writer.format("%d, %d, %d\n", PID, CBT, AAT);
+                writer.format("%d,%d,%d\n", PID, CBT, AAT);
             }
             writer.close();
         } catch (IOException e) {
