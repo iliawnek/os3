@@ -1,8 +1,10 @@
+package os3;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
-public class WorkloadGenerator {
+class WorkloadGenerator {
 
     public static void main(String[] args) {
         // constants
