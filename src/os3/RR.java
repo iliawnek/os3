@@ -12,4 +12,9 @@ class RR extends Simulator {
     void execute(Process process) {
         process.executeForQuantum(this.time, this.quantum, this.waitingQueue);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s Q = %d", super.toString(), quantum);
+    }
 }

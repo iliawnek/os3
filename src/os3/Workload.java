@@ -31,16 +31,20 @@ class Workload {
     }
 
     void admitProcesses(Time time, WaitingQueue waitingQueue) {
-        System.out.format("Admitting processes at time = %d:\n", time.get());
+        boolean found = false;
         for (Process process : this.workload) {
             if ((process.AAT <= time.get()) && !process.admitted) {
+                if (!found) {
+                    System.out.format("Admit processes at time = %d:\n", time.get());
+                    found = true;
+                }
                 process.admit();
                 this.admissionCount++;
-                System.out.println(process);
+                System.out.format("\t%s\n", process);
                 waitingQueue.add(process);
             }
         }
-        System.out.println();
+        if (found) System.out.println();
     }
 
     boolean allProcessesAdmitted() {
