@@ -2,13 +2,20 @@ package os3;
 
 import java.util.Comparator;
 
+/**
+ * Provides functionality for simulating a process scheduling algorithm.
+ */
 abstract class Simulator {
 
-    Time time;
-    private Workload workload;
-    WaitingQueue waitingQueue;
-    String filename;
+    Time time; // keeps track of current global time in abstract time units
+    private Workload workload; // contains and manages all processes
+    WaitingQueue waitingQueue; // queue of admitted processes awaiting execution
+    String filename; // name of input CSV file
 
+    /**
+     * @param filename of input CSV file
+     * @param comparator for ordering the waiting queue
+     */
     Simulator(String filename, Comparator<Process> comparator) {
         this.time = new Time();
         this.workload = new Workload(filename);
@@ -16,10 +23,14 @@ abstract class Simulator {
         this.filename = filename;
     }
 
+    /**
+     * Runs the simulation and prints results.
+     */
     void run() {
         System.out.println(this);
         System.out.println();
 
+        // loop while there are still processes to be admitted
         while (!workload.allProcessesAdmitted() || !this.waitingQueue.isEmpty()) {
             if (!workload.allProcessesAdmitted()) {
                 workload.admitProcesses(time, waitingQueue);
@@ -40,6 +51,11 @@ abstract class Simulator {
         System.out.println();
     }
 
+
+    /**
+     * Defines how a process is to be executed when popped from the waiting queue.
+     * @param process to be executed
+     */
     abstract void execute(Process process);
 
     @Override

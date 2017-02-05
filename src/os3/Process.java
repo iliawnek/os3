@@ -1,14 +1,17 @@
 package os3;
 
+/**
+ * Represents a process.
+ */
 class Process {
-    int PID;
-    int CBT;
-    int RCBT; // remaining CPU burst time
-    int AAT;
-    int MRAT; // most recent arrival time
-    int WT;
-    int TA;
-    boolean admitted = false;
+    int PID; // unique process ID
+    int CBT; // duration of CPU burst
+    int RCBT; // remaining CPU burst time (if process is only partially executed)
+    int AAT; // absolute arrival time
+    int MRAT; // most recent arrival time (if process is reinserted back into the waiting queue)
+    int WT; // waiting time
+    int TA; // turnaround time
+    boolean admitted = false; // true if process has been admitted into waiting queue
 
     /**
      * @param PID process ID
@@ -23,10 +26,18 @@ class Process {
         this.MRAT = AAT;
     }
 
+    /**
+     * Sets a process as admitted into the waiting queue.
+     */
     void admit() {
         this.admitted = true;
     }
 
+    /**
+     * Fully executes a process until completion and advances global time.
+     * Calculates waiting and turnaround times.
+     * @param time current global time
+     */
     void executeUntilCompletion(Time time) {
         System.out.format("Finish PID = %d from time = %d → %d:\n", PID, time.get(), time.get() + CBT);
         time.advance(CBT);
@@ -36,6 +47,11 @@ class Process {
         System.out.println();
     }
 
+    /**
+     * @param time current global time
+     * @param quantum duration of a quantum
+     * @param waitingQueue waiting queue for process scheduling algorithm
+     */
     void executeForQuantum(Time time, int quantum, WaitingQueue waitingQueue) {
         // if process can finish execution during this quantum
         if (RCBT <= quantum) {

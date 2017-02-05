@@ -1,6 +1,10 @@
 package os3;
 
 class Main {
+    /**
+     * Runs simulation for FCFS, SJF, and RR process scheduling algorithms (sub-tasks 2.1 → 2.5).
+     * Prints operations and results onto System.out.
+     */
     public static void main(String[] args) {
         new FCFS("W1.csv").run();
         new FCFS("W2.csv").run();
