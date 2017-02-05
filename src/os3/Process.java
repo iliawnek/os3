@@ -3,7 +3,9 @@ package os3;
 class Process {
     int PID;
     int CBT;
+    int RCBT; // remaining CPU burst time
     int AAT;
+    int MRAT; // most recent arrival time
     int WT;
     int TA;
     boolean admitted = false;
@@ -16,7 +18,9 @@ class Process {
     Process(int PID, int CBT, int AAT) {
         this.PID = PID;
         this.CBT = CBT;
+        this.RCBT = CBT;
         this.AAT = AAT;
+        this.MRAT = AAT;
     }
 
     void admit() {
@@ -29,8 +33,20 @@ class Process {
         this.WT = TA - CBT;
     }
 
-    void executeForQuantum() {
-
+    void executeForQuantum(Time time, int quantum, WaitingQueue waitingQueue) {
+        // if process can finish execution during this quantum
+        if (RCBT <= quantum) {
+            time.advance(RCBT);
+            TA = time.get() - AAT;
+            WT = TA - CBT;
+        }
+        // else process must be reinserted back into waiting queue
+        else {
+            RCBT -= quantum;
+            time.advance(quantum);
+            MRAT = time.get();
+            waitingQueue.add(this);
+        }
     }
 
     @Override
