@@ -1,16 +1,17 @@
 package os3;
 
+import java.util.Comparator;
+
 abstract class Simulator {
 
     Time time;
     private Workload workload;
     WaitingQueue waitingQueue;
-    int AWT;
-    int ATT;
 
-    Simulator(String filename) {
-        this.workload = new Workload(filename);
+    Simulator(String filename, Comparator<Process> comparator) {
         this.time = new Time();
+        this.workload = new Workload(filename);
+        this.waitingQueue = new WaitingQueue(comparator);
     }
 
     void run() {
@@ -23,6 +24,7 @@ abstract class Simulator {
                 execute(process);
             }
         }
+
         int AWT = workload.getAWT();
         int ATT = workload.getATT();
         System.out.format("Average waiting time: %d\n", AWT);

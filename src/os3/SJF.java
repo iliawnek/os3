@@ -2,8 +2,7 @@ package os3;
 
 class SJF extends Simulator {
     SJF(String filename) {
-        super(filename);
-        this.waitingQueue = new WaitingQueue(new CBTComparator());
+        super(filename, new CBTComparator());
     }
 
     @Override

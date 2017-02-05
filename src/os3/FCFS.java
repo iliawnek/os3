@@ -2,8 +2,7 @@ package os3;
 
 class FCFS extends Simulator {
     FCFS(String filename) {
-        super(filename);
-        this.waitingQueue = new WaitingQueue(new AATComparator());
+        super(filename, new AATComparator());
     }
 
     @Override
