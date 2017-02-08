@@ -45,18 +45,11 @@ class Workload {
         boolean found = false;
         for (Process process : this.workload) {
             if ((process.AAT <= time.get()) && !process.admitted) {
-                // only print if there are processes to admit
-//                if (!found) {
-//                    System.out.format("Admit processes at time = %d:\n", time.get());
-//                    found = true;
-//                }
                 process.admit(); // setting admission status allows ignoring of already-admitted processes next time
                 this.admissionCount++;
-//                System.out.format("\t%s\n", process);
                 readyQueue.add(process);
             }
         }
-//        if (found) System.out.println(); // only print if there are processes to admit
     }
 
     /**
