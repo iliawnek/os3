@@ -78,7 +78,7 @@ class Workload {
     }
 
     /**
-     * @return calculated average turnaorund time of all processes in workload
+     * @return calculated average turnaround time of all processes in workload
      */
     double getATT() {
         double totalTA = 0;
