@@ -46,17 +46,17 @@ class Workload {
         for (Process process : this.workload) {
             if ((process.AAT <= time.get()) && !process.admitted) {
                 // only print if there are processes to admit
-                if (!found) {
-                    System.out.format("Admit processes at time = %d:\n", time.get());
-                    found = true;
-                }
+//                if (!found) {
+//                    System.out.format("Admit processes at time = %d:\n", time.get());
+//                    found = true;
+//                }
                 process.admit(); // setting admission status allows ignoring of already-admitted processes next time
                 this.admissionCount++;
-                System.out.format("\t%s\n", process);
+//                System.out.format("\t%s\n", process);
                 waitingQueue.add(process);
             }
         }
-        if (found) System.out.println(); // only print if there are processes to admit
+//        if (found) System.out.println(); // only print if there are processes to admit
     }
 
     /**
@@ -86,5 +86,14 @@ class Workload {
             totalTA += process.TA;
         }
         return totalTA / workload.size();
+    }
+
+    /**
+     * Prints all processes in the workload to System.out.
+     */
+    void print() {
+        for (Process process : workload) {
+            System.out.println(process);
+        }
     }
 }

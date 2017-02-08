@@ -18,11 +18,15 @@ class WorkloadGenerator {
         final double M1 = 20; // W1 Gaussian mean
         final double M2 = 60; // W2 Gaussian mean
         final double STD = 3; // Gaussian standard deviation
-        final int CBT_MIN = 5; // lower bound for CPU burst time
+        final double CBT_MIN = 5; // lower bound for CPU burst time
         double L = 5; // Poisson mean
 
         Random random = new Random(System.currentTimeMillis());
+        System.out.println("W1:");
+        System.out.println();
         generateWorkload("W1.csv", random, N, M1, STD, CBT_MIN, L); // generate workload W1
+        System.out.println("W2:");
+        System.out.println();
         generateWorkload("W2.csv", random, N, M2, STD, CBT_MIN, L); // generate workload W2
     }
 
@@ -39,7 +43,7 @@ class WorkloadGenerator {
      * @param CBT_MIN lower bound of CPU burst time
      * @param L mean of Poisson distribution
      */
-    private static void generateWorkload(String filename, Random random, int N, double M, double STD, int CBT_MIN, double L) {
+    private static void generateWorkload(String filename, Random random, int N, double M, double STD, double CBT_MIN, double L) {
         try {
             PrintWriter writer = new PrintWriter(filename, "UTF-8");
             int AAT = 0;
@@ -53,6 +57,7 @@ class WorkloadGenerator {
                 AAT = AAT + (PID == 0 ? 0 : deltaT);
 
                 writer.format("%d,%d,%d\n", PID, CBT, AAT);
+                System.out.format("%d,%d,%d\n", PID, CBT, AAT);
             }
             writer.close();
         } catch (IOException e) {
