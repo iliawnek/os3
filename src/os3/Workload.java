@@ -69,8 +69,8 @@ class Workload {
     /**
      * @return calculated average waiting time of all processes in workload
      */
-    int getAWT() {
-        int totalWT = 0;
+    double getAWT() {
+        double totalWT = 0;
         for (Process process : workload) {
             totalWT += process.WT;
         }
@@ -80,8 +80,8 @@ class Workload {
     /**
      * @return calculated average turnaorund time of all processes in workload
      */
-    int getATT() {
-        int totalTA = 0;
+    double getATT() {
+        double totalTA = 0;
         for (Process process : workload) {
             totalTA += process.TA;
         }

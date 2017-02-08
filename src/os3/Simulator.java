@@ -41,11 +41,11 @@ abstract class Simulator {
             }
         }
 
-        int AWT = workload.getAWT();
-        int ATT = workload.getATT();
+        double AWT = workload.getAWT();
+        double ATT = workload.getATT();
 
-        System.out.format("Average waiting time = %d\n", AWT);
-        System.out.format("Average turnaround time = %d\n", ATT);
+        System.out.format("Average waiting time = %.2f\n", AWT);
+        System.out.format("Average turnaround time = %.2f\n", ATT);
         System.out.println();
         System.out.println("--------------------------------------");
         System.out.println();
