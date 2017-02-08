@@ -43,7 +43,7 @@ class Process {
         time.advance(CBT);
         TA = time.get() - AAT;
         WT = TA - CBT;
-        System.out.format("\tCBT = %d, AAT = %d, TA = %d, WT = %d\n", CBT, AAT, TA, WT);
+        System.out.format("\tTA = %d, WT = %d\n", TA, WT);
         System.out.println();
     }
 
