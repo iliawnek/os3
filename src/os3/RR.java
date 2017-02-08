@@ -21,7 +21,7 @@ class RR extends Simulator {
      */
     @Override
     void execute(Process process) {
-        process.executeForQuantum(this.time, this.quantum, this.waitingQueue);
+        process.executeForQuantum(this.time, this.quantum, this.readyQueue);
     }
 
     @Override

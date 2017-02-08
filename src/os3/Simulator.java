@@ -9,17 +9,17 @@ abstract class Simulator {
 
     Time time; // keeps track of current global time in abstract time units
     private Workload workload; // contains and manages all processes
-    WaitingQueue waitingQueue; // queue of admitted processes awaiting execution
+    ReadyQueue readyQueue; // queue of admitted processes awaiting execution
     String filename; // name of input CSV file
 
     /**
      * @param filename of input CSV file
-     * @param comparator for ordering the waiting queue
+     * @param comparator for ordering the ready queue
      */
     Simulator(String filename, Comparator<Process> comparator) {
         this.time = new Time();
         this.workload = new Workload(filename);
-        this.waitingQueue = new WaitingQueue(comparator);
+        this.readyQueue = new ReadyQueue(comparator);
         this.filename = filename;
     }
 
@@ -31,17 +31,17 @@ abstract class Simulator {
         System.out.println();
 
         // loop while there are still processes to be admitted
-        while (!workload.allProcessesAdmitted() || !this.waitingQueue.isEmpty()) {
+        while (!workload.allProcessesAdmitted() || !this.readyQueue.isEmpty()) {
             if (!workload.allProcessesAdmitted()) {
-                workload.admitProcesses(time, waitingQueue);
+                workload.admitProcesses(time, readyQueue);
                 // keep advancing time until we find a process to admit
-                while (this.waitingQueue.isEmpty()) {
+                while (this.readyQueue.isEmpty()) {
                     time.advance(1);
-                    workload.admitProcesses(time, waitingQueue);
+                    workload.admitProcesses(time, readyQueue);
                 }
             }
-            if (!this.waitingQueue.isEmpty()) {
-                Process process = waitingQueue.pop();
+            if (!this.readyQueue.isEmpty()) {
+                Process process = readyQueue.pop();
                 execute(process);
             }
         }
@@ -60,7 +60,7 @@ abstract class Simulator {
 
 
     /**
-     * Defines how a process is to be executed when popped from the waiting queue.
+     * Defines how a process is to be executed when popped from the ready queue.
      * @param process to be executed
      */
     abstract void execute(Process process);

@@ -5,7 +5,7 @@ package os3;
  */
 class FCFS extends Simulator {
     /**
-     * Uses comparator for ordering waiting queue by earliest absolute arrival time first.
+     * Uses comparator for ordering ready queue by earliest absolute arrival time first.
      * @param filename of input CSV file
      */
     FCFS(String filename) {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 class Workload {
     private ArrayList<Process> workload; // list of all processes in the workload
-    private int admissionCount = 0; // number of processes that have been admitted into the waiting queue
+    private int admissionCount = 0; // number of processes that have been admitted into the ready queue
 
     /**
      * Parses and stores processes defined by input CSV file.
@@ -37,11 +37,11 @@ class Workload {
     }
 
     /**
-     * Admits all processes who have arrived (based on current global time) into waiting queue.
+     * Admits all processes who have arrived (based on current global time) into ready queue.
      * @param time current global time
-     * @param waitingQueue waiting queue for process scheduling algorithm
+     * @param readyQueue ready queue for process scheduling algorithm
      */
-    void admitProcesses(Time time, WaitingQueue waitingQueue) {
+    void admitProcesses(Time time, ReadyQueue readyQueue) {
         boolean found = false;
         for (Process process : this.workload) {
             if ((process.AAT <= time.get()) && !process.admitted) {
@@ -53,14 +53,14 @@ class Workload {
                 process.admit(); // setting admission status allows ignoring of already-admitted processes next time
                 this.admissionCount++;
 //                System.out.format("\t%s\n", process);
-                waitingQueue.add(process);
+                readyQueue.add(process);
             }
         }
 //        if (found) System.out.println(); // only print if there are processes to admit
     }
 
     /**
-     * @return true if all processes in workload have been admitted into the waiting queue
+     * @return true if all processes in workload have been admitted into the ready queue
      */
     boolean allProcessesAdmitted() {
         return admissionCount == workload.size();

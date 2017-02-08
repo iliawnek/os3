@@ -5,7 +5,7 @@ package os3;
  */
 class SJF extends Simulator {
     /**
-     * Uses comparator for ordering waiting queue by shortest CPU burst time first.
+     * Uses comparator for ordering ready queue by shortest CPU burst time first.
      * @param filename of input CSV file
      */
     SJF(String filename) {
