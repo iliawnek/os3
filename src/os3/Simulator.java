@@ -34,6 +34,11 @@ abstract class Simulator {
         while (!workload.allProcessesAdmitted() || !this.waitingQueue.isEmpty()) {
             if (!workload.allProcessesAdmitted()) {
                 workload.admitProcesses(time, waitingQueue);
+                // keep advancing time until we find a process to admit
+                while (this.waitingQueue.isEmpty()) {
+                    time.advance(1);
+                    workload.admitProcesses(time, waitingQueue);
+                }
             }
             if (!this.waitingQueue.isEmpty()) {
                 Process process = waitingQueue.pop();
